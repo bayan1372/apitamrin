@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'home2.dart';
 import 'splash.dart';
+import 'testttt.dart';
 
 void main() {
   runApp(const MyApp());
