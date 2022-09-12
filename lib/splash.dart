@@ -20,26 +20,10 @@ with SingleTickerProviderStateMixin {
   var apiTestData_var = [];
   AnimationController? controller ;
 
-  List? api_list_final = [];
-  Future<List<CoinMarket>?> get_api_coin() async {
-    const infourl =
-        'http://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true';
-    var response = await http.get(Uri.parse(infourl), headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-    });
-    if (response.statusCode == 200) {
-      var data_get = response.body;
-      apiTestData = coinMarketFromJson(data_get);
-      setState(() {
-        api_list_final = apiTestData;
-      });
-    }
-  }
+ 
   @override
   void initState() {
     super.initState();
-    get_api_coin();
     controller=AnimationController(vsync: this,duration: const Duration(seconds: 5));
     Future.delayed(Duration(seconds: 5), () {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Home1()));

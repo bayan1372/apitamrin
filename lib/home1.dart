@@ -194,88 +194,147 @@ class _Home1State extends State<Home1> {
   Widget build(BuildContext context) {
     double myheight = MediaQuery.of(context).size.height;
     double mywidth = MediaQuery.of(context).size.width;
+    int exit_index = 0;
+    void showExitMessenger() {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          duration: Duration(seconds: 2),
+          // behavior: SnackBarBehavior.floating,
+          // backgroundColor: Colors.amber,
+          content: Text(
+            'لطفا برای خروج 2 بار کلیک کنید',
+            style: TextStyle(fontFamily: "Vazir"),
+          )));
+    }
 
     return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            elevation: 10.0,
-            toolbarHeight: myheight * 0.08,
-            backgroundColor: Colors.black54,
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.search),
-              )
-            ],
-            title: const Text("ارز دیجیتال"),
-            centerTitle: true,
- leading: new IconButton(
-          icon: new Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),          ),
-          body: Column(
-            children: [
-              Container(
-                height: myheight * 0.07,
-                width: mywidth,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [Text(""), Text("نام ارز"), Text("قیمت")],
+      child: WillPopScope(
+        onWillPop: () async {
+          Future.delayed(const Duration(milliseconds: 500), () {
+            setState(() {
+              exit_index = 0;
+            });
+          });
+          exit_index++;
+          if (exit_index == 2) {
+            exit(1);
+          } else {
+            showExitMessenger();
+          }
+          return false;
+        },
+        child: Scaffold(
+            appBar: AppBar(
+              elevation: 10.0,
+              toolbarHeight: myheight * 0.08,
+              backgroundColor: Colors.black54,
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.search),
+                )
+              ],
+              title: const Text("ارز دیجیتال"),
+              centerTitle: true,
+            ),
+            drawer: Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  Container(
+                    height: 100,
+                    child: const DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Colors.black54,
+                      ),
+                      child: Text('ارز دیجیتال'),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.home,
+                    ),
+                    title: const Text('تنظیمات'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.train,
+                    ),
+                    title: const Text('نظرسنجی'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
+            ),
+            body: Column(
+              children: [
+                Container(
+                  height: myheight * 0.07,
+                  width: mywidth,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [Text(""), Text("نام ارز"), Text("قیمت")],
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                  child: ListView.builder(
-                itemCount: api_list_final!.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        onTap: (() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Home2(
-                                      data_pass: api_list_final![index])));
-                        }),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: myheight * 0.08,
-                            width: mywidth,
-                            decoration: BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.network(
-                                        api_list_final![index].image),
-                                  ),
-                                  Text(api_list_final![index].name),
-                                  Text(api_list_final![index]
-                                      .currentPrice
-                                      .toString()),
-                                ],
+                Expanded(
+                    child: ListView.builder(
+                  itemCount: api_list_final!.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        GestureDetector(
+                          onTap: (() {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Home2(
+                                        data_pass: api_list_final![index])));
+                          }),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: myheight * 0.08,
+                              width: mywidth,
+                              decoration: BoxDecoration(
+                                  color: Colors.black12,
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.network(
+                                          api_list_final![index].image),
+                                    ),
+                                    Text(api_list_final![index].name),
+                                    Text(api_list_final![index]
+                                        .currentPrice
+                                        .toString()),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const Divider(),
-                    ],
-                  );
-                },
-              ))
-            ],
-          )),
+                        const Divider(),
+                      ],
+                    );
+                  },
+                ))
+              ],
+            )),
+      ),
     );
   }
 }
