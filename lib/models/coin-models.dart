@@ -25,13 +25,13 @@ class CoinMarket {
     // this.marketCapChange24H,
     this.marketCapChangePercentage24H,
     // this.circulatingSupply,
-    // this.totalSupply,
+    this.totalSupply,
     // this.maxSupply,
     // this.ath,
     // this.athChangePercentage,
     // this.athDate,
     // this.atl,
-    // this.atlChangePercentage,
+    this.atlChangePercentage,
     // this.atlDate,
     // this.lastUpdated,
     this.sparklineIn7D,
@@ -53,13 +53,13 @@ class CoinMarket {
   // double? marketCapChange24H;
   double? marketCapChangePercentage24H;
   // double? circulatingSupply;
-  // double? totalSupply;
+  double? totalSupply;
   // double? maxSupply;
   // int? ath;
   // double? athChangePercentage;
   // DateTime? athDate;
   // double? atl;
-  // double? atlChangePercentage;
+  double? atlChangePercentage;
   // DateTime? atlDate;
   // DateTime? lastUpdated;
   SparklineIn7D? sparklineIn7D;
@@ -89,13 +89,13 @@ class CoinMarket {
                 ? null
                 : json["market_cap_change_percentage_24h"]!.toDouble(),
         // circulatingSupply: json["circulating_supply"] == null ? null : json["circulating_supply"].toDouble(),
-        // totalSupply: json["total_supply"] == null ? null : json["total_supply"].toDouble(),
+        totalSupply: json["total_supply"] == null ? null : json["total_supply"].toDouble(),
         // maxSupply: json["max_supply"] == null ? null : json["max_supply"].toDouble(),
         // ath: json["ath"] == null ? null : json["ath"].toDouble(),
         // athChangePercentage: json["ath_change_percentage"] == null ? null : json["ath_change_percentage"].toDouble(),
         // athDate: json["ath_date"] == null ? null : DateTime.parse(json["ath_date"]),
         // atl: json["atl"] == null ? null : json["atl"].toDouble(),
-        // atlChangePercentage: json["atl_change_percentage"] == null ? null : json["atl_change_percentage"].toDouble(),
+        atlChangePercentage: json["atl_change_percentage"] == null ? null : json["atl_change_percentage"].toDouble(),
         // atlDate: json["atl_date"] == null ? null : DateTime.parse(json["atl_date"]),
         // roi: json["roi"] == null ? null : Roi.fromJson(json["roi"]),
         // lastUpdated: json["last_updated"] == null ? null : DateTime.parse(json["last_updated"]),

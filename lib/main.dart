@@ -1,10 +1,10 @@
 import 'package:apitamrin/home1.dart';
+import 'package:apitamrin/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'home2.dart';
 import 'splash.dart';
-import 'testttt.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: const [Locale('fa', 'IR')],
 
-      home: Home1(),
+      home: SplashPage(),
     );
   }
 }
